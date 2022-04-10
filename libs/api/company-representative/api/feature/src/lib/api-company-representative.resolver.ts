@@ -10,11 +10,36 @@ export class ApiCompanyRepresentativeResolver {
     constructor(private companyrepService: ApiCompanyRepresentativeService) {}
 
   @Query((returns) => CompanyRepresentative)
-  async companyrep(@Args('id') id: string): Promise<CompanyRepresentative> {
+  async companyrepresentative(@Args('id') id: string): Promise<CompanyRepresentative> {
     const resp = await this.companyrepService.findOneById(id);
     if (!resp) {
       throw new NotFoundException(id);
     }
+    return resp;
+  }
+
+  @Query((returns) =>[] as CompanyRepresentative[])
+  async companyrepresentatives(): Promise<CompanyRepresentative[]> {
+    const resp = await this.companyrepService.findAll();
+    if (!resp) {
+      throw new NotFoundException();
+    }
+    return resp;
+  }
+
+  @Query((returns) => Boolean)
+  async deleteCompanyrepresentative(@Args('id') id: string): Promise<boolean> {
+    const resp = await this.companyrepService.remove(id)
+    if (!resp) {
+      throw new NotFoundException();
+    }
+    return resp;
+  }
+
+  @Mutation((returns) => CompanyRepresentativeCreate)
+  async editCompanyrep(@Args('newCompanyrepData') newCompanyrepData: CompanyRepresentativeCreate): Promise<CompanyRepresentativeCreate> {
+    const resp = await this.companyrepService.create(newCompanyrepData);
+    pubSub.publish('companyrepAdded', { companyrepAdded: resp });
     return resp;
   }
 
