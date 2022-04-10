@@ -1,14 +1,13 @@
 {
   "root": "libs/api/hosting/api/shared/data-access",
   "sourceRoot": "libs/api/hosting/api/shared/data-access/src",
+  "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/api/hosting/api/shared/data-access/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/api/hosting/api/shared/data-access/**/*.ts"]
       }
     },
     "test": {
