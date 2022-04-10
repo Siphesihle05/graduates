@@ -29,7 +29,7 @@ export class ApiCompanyRepresentativeService {
         return [] as CompanyRepresentative[];
       }
     
-      async remove(id: number): Promise<boolean> {
+      async remove(id: string): Promise<boolean> {
         return true;
       }
 }
