@@ -18,7 +18,7 @@ export class ApiCompanyRepresentativeResolver {
     return resp;
   }
 
-  @Query((returns) =>[] as CompanyRepresentative[])
+  @Query((returns) =>CompanyRepresentative)
   async companyrepresentatives(): Promise<CompanyRepresentative[]> {
     const resp = await this.companyrepService.findAll();
     if (!resp) {
@@ -36,10 +36,10 @@ export class ApiCompanyRepresentativeResolver {
     return resp;
   }
 
-  @Mutation((returns) => CompanyRepresentativeCreate)
-  async editCompanyrep(@Args('newCompanyrepData') newCompanyrepData: CompanyRepresentativeCreate): Promise<CompanyRepresentativeCreate> {
-    const resp = await this.companyrepService.create(newCompanyrepData);
-    pubSub.publish('companyrepAdded', { companyrepAdded: resp });
+  @Mutation((returns) => CompanyRepresentative)
+  async editCompanyrep(@Args('newCompanyrepData') updatedCompanyrepData: CompanyRepresentativeCreate): Promise<CompanyRepresentativeCreate> {
+    const resp = await this.companyrepService.edit(updatedCompanyrepData);
+    pubSub.publish('company representative edited', { companyrepEdited: resp });
     return resp;
   }
 
@@ -48,7 +48,7 @@ export class ApiCompanyRepresentativeResolver {
     @Args('newCompanyrepData') newCompanyrepData: CompanyRepresentativeCreate
   ): Promise<CompanyRepresentativeCreate> {
     const resp = await this.companyrepService.create(newCompanyrepData);
-    pubSub.publish('companyrepAdded', { companyrepAdded: resp });
+    pubSub.publish('new company representative added', { companyrepAdded: resp });
     return resp;
   }
 }
