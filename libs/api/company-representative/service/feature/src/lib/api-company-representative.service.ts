@@ -9,10 +9,6 @@ export class ApiCompanyRepresentativeService {
         return data as any;
       }
     
-      async edit(data: CompanyRepresentative): Promise<CompanyRepresentativeCreate> {
-        return data as any;
-      }
-      
       async findOneById(id: string): Promise<CompanyRepresentative> {
         const data = {
           id: id,
